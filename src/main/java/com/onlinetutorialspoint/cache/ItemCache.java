@@ -8,9 +8,6 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-
 @Component
 public class ItemCache {
     @Autowired
@@ -33,7 +30,7 @@ public class ItemCache {
         itemRepo.deleteItem(id);
     }
 
-    @CachePut(value="itemCache",key = "#id")
+    @CachePut(value="itemCache",key = "#id",condition = "#result != null")
     public void addItem(Item item){
         System.out.println("In addItem cache component..");
         itemRepo.addItem(item);
